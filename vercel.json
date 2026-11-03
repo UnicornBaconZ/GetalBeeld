@@ -4,7 +4,7 @@
   "outputDirectory": "public",
   "functions": {
     "api/index.js": {
-      "includeFiles": "{dist,views}/**"
+      "includeFiles": "views/**"
     }
   },
   "rewrites": [{ "source": "/(.*)", "destination": "/api" }]
