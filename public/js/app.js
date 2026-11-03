@@ -21,6 +21,7 @@
     color: 'zwart',
     count: 0,
     hidden: false,
+    lastRandom: null,
     // Color of each filled object (by position in counting order). Colors are
     // forgotten again as soon as objects are removed.
     cellColors: new Array(20).fill(null),
@@ -115,7 +116,7 @@
 
   function buildClusterPanel(width, cells) {
     const panel = document.createElement('div');
-    panel.className = 'grid gap-3 p-2';
+    panel.className = 'grid gap-2 p-1 sm:gap-3 sm:p-2';
     panel.style.gridTemplateColumns = `repeat(${width}, minmax(0, 1fr))`;
 
     cells.forEach(({ colorKey, number }) => {
@@ -123,7 +124,7 @@
       cell.type = 'button';
       cell.setAttribute('aria-label', String(number));
       cell.className =
-        'w-12 h-12 md:w-14 md:h-14 flex items-center justify-center cursor-pointer rounded-full hover:bg-sky-100 transition-colors';
+        'w-9 h-9 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center cursor-pointer rounded-full hover:bg-sky-100 transition-colors';
       cell.innerHTML = shapeSvg(colorKey);
       // Clicking an object shows the number up to and including that object.
       cell.addEventListener('click', () => {
@@ -139,7 +140,7 @@
   function buildTenBox(boxIndex) {
     const box = document.createElement('div');
     box.className =
-      'flex flex-wrap items-center justify-center gap-5 py-8 px-4 rounded-3xl bg-sky-50/60 border-4 border-dashed border-sky-300';
+      'flex flex-nowrap items-center justify-center gap-3 sm:gap-5 py-6 sm:py-8 px-2 sm:px-4 rounded-3xl bg-sky-50/60 border-4 border-dashed border-sky-300';
     const colors = computeBoxColors(boxIndex);
     CLUSTER_WIDTHS.forEach((width, cluster) => {
       box.appendChild(buildClusterPanel(width, colors[cluster]));
@@ -248,13 +249,20 @@
   });
 
   randomBtn.addEventListener('click', async () => {
+    // Never show the same random number twice in a row.
+    const exclude = state.lastRandom !== null && state.lastRandom <= state.mode;
     let value;
     try {
-      const res = await fetch(`/api/random?max=${state.mode}`);
+      const res = await fetch(
+        `/api/random?max=${state.mode}${exclude ? `&exclude=${state.lastRandom}` : ''}`,
+      );
       value = (await res.json()).value;
     } catch (err) {
-      value = Math.floor(Math.random() * (state.mode + 1));
+      do {
+        value = Math.floor(Math.random() * (state.mode + 1));
+      } while (exclude && value === state.lastRandom);
     }
+    state.lastRandom = value;
     state.hidden = true;
     // Start from scratch so every object has the selected color.
     setCount(0);

@@ -16,7 +16,13 @@ export class AppController {
   }
 
   @Get('api/random')
-  getRandomNumber(@Query('max') max?: string): { value: number } {
-    return { value: this.appService.getRandomNumber(Number(max) || 10) };
+  getRandomNumber(
+    @Query('max') max?: string,
+    @Query('exclude') exclude?: string,
+  ): { value: number } {
+    const excluded = exclude ? Number(exclude) : undefined;
+    return {
+      value: this.appService.getRandomNumber(Number(max) || 10, excluded),
+    };
   }
 }
