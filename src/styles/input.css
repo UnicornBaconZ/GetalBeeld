@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .font-baloo {
+    font-family: 'Baloo 2', ui-rounded, 'Comic Sans MS', sans-serif;
+  }
+}
+
+@layer components {
+  /* Fixed-size control buttons: dimensions never change, regardless of label length. */
+  .control-btn {
+    @apply w-full sm:w-56 h-16 flex items-center justify-center text-center px-3
+      rounded-2xl font-bold text-sm sm:text-base text-white shadow-md
+      transition-colors leading-tight break-words;
+  }
+
+  .color-btn {
+    @apply w-20 h-12 sm:w-24 sm:h-14 flex items-center justify-center rounded-xl
+      font-bold text-sm sm:text-base shadow-sm transition-colors
+      ring-2 ring-transparent ring-offset-2;
+  }
+
+  /* Segmented control option: fixed size regardless of which option is active. */
+  .direction-btn {
+    @apply w-28 sm:w-36 h-14 flex items-center justify-center text-center px-2
+      rounded-xl font-bold text-xs sm:text-sm leading-tight break-words
+      transition-colors;
+  }
+}

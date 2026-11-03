@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body class="min-h-screen bg-gradient-to-b from-sky-100 via-sky-50 to-amber-50 text-slate-800 flex flex-col items-center py-8 px-4 font-baloo">
+
+  <main class="w-full max-w-3xl bg-white rounded-[2rem] shadow-xl border-4 border-sky-200 p-6 md:p-10">
+    <header class="text-center mb-8">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-sky-700">🔢 Getalbeeld ✨</h1>
+      <p class="mt-2 text-slate-500 text-lg">Spelen met getallen en vormen &mdash; tellen tot 10 of 20</p>
+    </header>
+
+    <!-- Mode / shape / direction controls -->
+    <section class="flex flex-wrap items-stretch justify-center gap-3 mb-8" aria-label="Weergave-opties">
+      <button id="mode-toggle" type="button"
+        class="control-btn bg-sky-600 hover:bg-sky-500">
+        Schakel naar 20-modus
+      </button>
+      <button id="shape-toggle" type="button"
+        class="control-btn bg-emerald-600 hover:bg-emerald-500">
+        Vorm wisselen
+      </button>
+      <div class="flex gap-1 bg-amber-100 rounded-2xl p-1" role="group" aria-label="Kies een telstructuur">
+        <button id="direction-vijf" type="button" class="direction-btn">
+          Vijfstructuur
+        </button>
+        <button id="direction-kwadraat" type="button" class="direction-btn">
+          Kwadraatbeeld
+        </button>
+      </div>
+    </section>
+
+    <!-- Shape display: one box per ten (4-4-2 clusters with space between them) -->
+    <section
+      id="display-area"
+      class="flex flex-col items-center justify-center gap-6 min-h-[220px] my-6"
+      aria-live="polite"
+      aria-label="Getalbeeld">
+    </section>
+
+    <!-- Current number (hidden while guessing a random number) -->
+    <div id="current-number-wrapper" class="mb-8">
+      <p class="text-center text-slate-500 mb-1 text-base font-semibold">Huidig getal</p>
+      <p id="current-number" class="text-center text-6xl font-black text-sky-700">0</p>
+    </div>
+
+    <!-- Number picker -->
+    <section id="number-buttons" class="flex flex-col items-center gap-2 mb-8" aria-label="Kies een getal">
+    </section>
+
+    <!-- Color + random -->
+    <section class="flex flex-col items-center gap-5">
+      <div class="flex flex-wrap items-center justify-center gap-2">
+        <span class="text-base font-bold text-slate-500 mr-1">Kleur:</span>
+        <div id="color-buttons" class="flex flex-wrap justify-center gap-2">
+          <button data-color="zwart" type="button" class="color-btn bg-black text-white">Zwart</button>
+          <button data-color="blauw" type="button" class="color-btn bg-blue-600 text-white">Blauw</button>
+          <button data-color="rood" type="button" class="color-btn bg-red-600 text-white">Rood</button>
+          <button data-color="geel" type="button" class="color-btn bg-yellow-400 text-slate-900">Geel</button>
+        </div>
+      </div>
+
+      <button id="random-btn" type="button"
+        class="w-full sm:w-72 h-16 flex items-center justify-center text-center px-4 rounded-2xl bg-gradient-to-r from-pink-500 to-orange-400 text-white font-bold text-base shadow-md hover:shadow-lg transition-shadow">
+        &#x1F3B2; Toon een willekeurig getal
+      </button>
+    </section>
+  </main>
+
+  <footer class="max-w-3xl w-full text-center text-xs text-slate-400 mt-8 px-4">
+    <p>Getalbeeld is een gratis, Nederlandstalige rekentool voor het basisonderwijs. Oefen getalbegrip door getallen tot 10 of 20 te visualiseren als vormen, gegroepeerd in clusters van 4-4-2.</p>
+  </footer>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
